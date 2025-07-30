@@ -2,6 +2,15 @@
 
 import { FormEvent, useState } from "react";
 import { signIn } from "next-auth/react";
+import {
+  Card,
+  CardAction,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card"
 
 
 export default function SignIn() {
@@ -15,33 +24,50 @@ export default function SignIn() {
    };
 
    return (
-      <div className="max-w-md mx-auto p-4">
-         <h1 className="mb-4 text-bold text-2xl">
-            Log in 
-         </h1>
+     <div className="flex items-center justify-center min-h-screen p-6">
+      <Card className="glass-card">
+         <CardHeader>
+            <CardTitle className="text-lg text-white">Log in</CardTitle>
+            <CardDescription className="text-white/80">
+               Enter your email and password to continue
+            </CardDescription>
+         </CardHeader>
 
-         <form 
-         onSubmit={handleSubmit}
-         >
-            <input
-            type="email"
-            placeholder="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className="w-full p-2 mb-2 border rounded"
-            />
-            <input
-            type="password"
-            placeholder="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            className="w-full p-2 mb-2 border rounded"
-            />
+         <CardContent>
+            <form onSubmit={handleSubmit} className="space-y-3">
+               <input
+               type="email"
+               placeholder="email"
+               value={email}
+               onChange={(e) => setEmail(e.target.value)}
+               className="w-full p-2 rounded-lg border border-white/30 bg-white/10 placeholder-white/60 text-white transition focus:outline-none focus:ring-2 focus:ring-pink-300 focus:bg-white/20"
+               />
+               <input
+               type="password"
+               placeholder="password"
+               value={password}
+               onChange={(e) => setPassword(e.target.value)}
+               className="w-full p-2 rounded-lg border border-white/30 bg-white/10 placeholder-white/60 text-white transition focus:outline-none focus:ring-2 focus:ring-pink-300 focus:bg-white/20"
+               />
 
-            <button type="submit" className="bg-purple-300 text-white p-2 rounded">
+               <button
+               type="submit"
+               className="w-full bg-pink-400 hover:bg-pink-500 text-white p-2 rounded-lg transition focus:outline-none focus:ring-2 focus:ring-pink-300"
+               >
                Log in
-            </button>
-         </form>
-      </div>
-   );
+               </button>
+            </form>
+         </CardContent>
+
+      <CardFooter>
+         <p className="text-sm text-white/70">
+            Don’t have an account?{" "}
+            <a href="/signup" className="text-white underline hover:text-white/90">
+            Sign up
+            </a>
+         </p>
+      </CardFooter>
+      </Card>
+   </div>
+  );
 };

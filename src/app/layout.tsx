@@ -25,13 +25,19 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className="">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-         <Providers>
-         <Navbar />
-        {children}
+
+        <div className="fixed inset-0 -z-10 overflow-hidden">
+          <div className="absolute w-72 h-72 bg-pink-300 opacity-30 rounded-full blur-3xl animate-pulse-slow top-[-80px] left-[60px]" />
+          <div className="absolute w-72 h-72 bg-purple-300 opacity-30 rounded-full blur-3xl animate-pulse-slower bottom-[-80px] right-[60px]" />
+        </div>
+
+        <Providers>
+          <Navbar />
+          {children}
         </Providers>
       </body>
     </html>
