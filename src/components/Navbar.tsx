@@ -11,7 +11,7 @@ export default function Navbar() {
    return (
       <nav className="p-4">
          <div className="container mx-auto flex justify-between items-center">
-            <Link href={'/'} className="text-xl font-bold flex items-center gap-2">
+            <Link href={'/feed'} className="text-xl font-bold flex items-center gap-2">
                <Newspaper className="w-6 h-6" />
                <span>Blog</span>
             </Link>

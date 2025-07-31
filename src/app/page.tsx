@@ -1,69 +1,52 @@
-import CreatePostWrapper from "@/components/CreatePostWrapper";
-import prisma from "@/lib/prisma";
+"use client";
+
+import { useSession } from "next-auth/react";
 import Link from "next/link";
 
-export default async function Home() {
-  const posts = await prisma.post.findMany({
-    include: { author: true },
-    orderBy: { createdAt: "desc" },
-  });
+export default function HomePage() {
+  const { data: session, status } = useSession();
 
   return (
-    <main className="min-h-screen max-w-7xl mx-auto px-6 py-10 grid grid-cols-1 lg:grid-cols-[2fr_1fr] gap-16">
-      <div>
-        <h1 className="text-3xl font-bold mb-10 text-center text-foreground dark:text-pink-200">
-          ✨ Feed
+    <main className="min-h-screen flex items-center justify-center px-6">
+      <div className="text-center max-w-xl glass-card p-10 rounded-xl shadow-lg">
+        <h1 className="text-4xl font-bold mb-4 text-pink-400">
+          {status === "loading"
+            ? "Loading..."
+            : session?.user?.name
+            ? `Welcome back, ${session.user.name}! 🌸`
+            : "Welcome to VibeBlog 🌸"}
         </h1>
-        <div className="flex flex-col gap-6">
-          {posts.map((post) => (
-         <div
-            key={post.id}
-            className="glass-card transition hover:shadow-xl hover:scale-[1.01] bg-white dark:bg-gray-800"
-         >
-            <div className="p-6">
-               <h2 className="text-2xl font-semibold text-foreground mb-1">
-               {post.title}
-               </h2>
-               <p className="text-base text-muted-foreground mb-3 leading-relaxed">
-               {post.content}
-               </p>
 
-               <div className="flex justify-between items-center text-sm text-gray-500 dark:text-gray-400 mt-4">
-               <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-full overflow-hidden border border-white/30 shadow-sm">
-                     {post.author?.image ? (
-                     <img
-                        src={post.author.image}
-                        alt="avatar"
-                        width={32}
-                        height={32}
-                        className="w-full h-full object-cover rounded-full"
-                     />
-                     ) : (
-                     <div className="w-full h-full bg-gray-300 dark:bg-zinc-700 flex items-center justify-center text-xs text-white font-bold rounded-full">
-                        {post.author?.name?.charAt(0).toUpperCase() || "?"}
-                     </div>
-                     )}
-                  </div>
-                  <span>{post.author?.name || "unknown"}</span>
-               </div>
+        <p className="text-muted-foreground text-lg mb-6">
+          {session
+            ? "Dive into your personalized feed."
+            : "Create, explore, and connect with the community."}
+        </p>
 
-               <Link
-                  href={`/posts/${post.id}`}
-                  className="text-pink-400 hover:text-pink-500 dark:text-pink-300 dark:hover:text-pink-400 font-medium transition"
-               >
-                  Read →
-               </Link>
-               </div>
-            </div>
-         </div>
-         ))}
-        </div>
-      </div>
-
-      <div className="flex items-center justify-center">
-        <div className="w-full max-w-md mb-60">
-          <CreatePostWrapper />
+        <div className="flex justify-center gap-6">
+          {session ? (
+            <Link
+              href="/feed"
+              className="bg-pink-400 hover:bg-pink-500 text-white px-6 py-2 rounded-lg transition"
+            >
+              Discover
+            </Link>
+          ) : (
+            <>
+              <Link
+                href="/signin"
+                className="bg-pink-400 hover:bg-pink-500 text-white px-6 py-2 rounded-lg transition"
+              >
+                Log In
+              </Link>
+              <Link
+                href="/signup"
+                className="border border-pink-400 text-pink-400 hover:bg-pink-400 hover:text-white px-6 py-2 rounded-lg transition"
+              >
+                Sign Up
+              </Link>
+            </>
+          )}
         </div>
       </div>
     </main>
