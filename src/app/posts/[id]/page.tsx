@@ -22,8 +22,8 @@ export default async function PostPage(props: { params: Promise<{ id: string }> 
               <Image
                 src={post.author.image}
                 alt="avatar"
-                width={48}
-                height={48}
+                width={96}
+                height={96}
                 className="rounded-full border border-white/30"
               />
             )}

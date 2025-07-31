@@ -8,7 +8,6 @@ export default function CreatePost() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const { data: session } = useSession();
-
   const router = useRouter();
 
   async function handleSubmit(e: FormEvent) {
@@ -16,9 +15,7 @@ export default function CreatePost() {
 
     await fetch("/api/posts", {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         title,
         content,
@@ -32,11 +29,11 @@ export default function CreatePost() {
   }
 
   return (
-    <div className="glass-card w-full max-w-400 p-6">
-      <h2 className="text-xl font-bold mb-4 text-foreground">Create a Post</h2>
+    <div className="glass-card w-full p-6 mx-auto">
+      <h2 className="text-xl font-bold mb-4 text-[var(--text-heading)] flex items-center justify-center">Share your thoughts</h2>
 
       {!session && (
-        <p className="text-sm text-muted-foreground mb-2">
+        <p className="text-sm text-[var(--text-subtle)] mb-2 flex items-center justify-center mb-5">
           Please log in to publish.
         </p>
       )}
@@ -47,21 +44,21 @@ export default function CreatePost() {
           placeholder="Title"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
-          className="w-full p-2 rounded-lg border border-white/30 bg-white/10 placeholder-white/60 text-white transition focus:outline-none focus:ring-2 focus:ring-pink-300 focus:bg-white/20"
+          className="w-full p-2 rounded-lg border border-[var(--input-border)] bg-[var(--input-bg)] placeholder-[var(--input-placeholder)] text-[var(--input-text)] transition focus:outline-none focus:ring-2 focus:ring-[var(--accent)] focus:bg-white/20"
           disabled={!session}
         />
         <textarea
           placeholder="Content"
           value={content}
           onChange={(e) => setContent(e.target.value)}
-          className="w-full p-2 rounded-lg border border-white/30 bg-white/10 placeholder-white/60 text-white transition focus:outline-none focus:ring-2 focus:ring-pink-300 focus:bg-white/20"
+          className="w-full p-2 rounded-lg border border-[var(--input-border)] bg-[var(--input-bg)] placeholder-[var(--input-placeholder)] text-[var(--input-text)] transition focus:outline-none focus:ring-2 focus:ring-[var(--accent)] focus:bg-white/20"
           disabled={!session}
         />
 
         <button
           type="submit"
           disabled={!session}
-          className={`w-full bg-pink-400 hover:bg-pink-500 text-white p-2 rounded-lg transition focus:outline-none focus:ring-2 focus:ring-pink-300 ${
+          className={`w-full bg-[var(--btn-bg)] hover:bg-[var(--btn-bg-hover)] text-[var(--btn-text)] p-2 rounded-lg transition focus:outline-none focus:ring-2 focus:ring-[var(--accent)] ${
             !session ? "opacity-50 cursor-not-allowed" : ""
           }`}
         >

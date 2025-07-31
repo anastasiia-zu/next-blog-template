@@ -12,8 +12,9 @@ export default function Navbar() {
       <nav className="p-4">
          <div className="container mx-auto flex justify-between items-center">
             <Link href={'/feed'} className="text-xl font-bold flex items-center gap-2">
-               <Newspaper className="w-6 h-6" />
-               <span>Blog</span>
+               {/* <Newspaper className="w-6 h-6" /> */}
+               <span>🌸</span>
+               <span>VibeDiary</span>
             </Link>
 
             <div className="flex items-center gap-4">

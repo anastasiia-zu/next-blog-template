@@ -2,19 +2,37 @@
 @import "tw-animate-css";
 
 :root {
-  --gradient-background: linear-gradient(to bottom right, #fce7f3, #fbcfe8, #f0abfc);
-  --background: #fdf4ff;
-  --foreground: #171717;
+  --color-1: #231f36;
+  --color-2: #614b67;
+  --color-3: #c08599;
+  --color-4: #fcdbdb;
+  --color-5: #99a8bb;
+
+  --gradient-background: linear-gradient(to bottom right, var(--color-3), var(--color-4), var(--color-5));
+  --background: var(--color-4);
+  --foreground: var(--color-1);
+
+  --btn-bg: var(--color-3);
+  --btn-bg-hover: var(--color-2);
+  --btn-text: white;
+  --card-bg: rgba(255, 255, 255, 0.11);
+  --input-bg: rgba(255, 255, 255, 0.1);
+  --input-placeholder: rgba(255, 255, 255, 0.6);
+  --input-border: rgba(255, 255, 255, 0.3);
+  --input-focus-bg: rgba(255, 255, 255, 0.2);
+  --input-focus-ring: var(--color-3);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --gradient-background: linear-gradient(to bottom right, #1a1a1a, #2a1f2d, #3b1f3f);
+    --gradient-background: linear-gradient(to bottom right, var(--color-1), var(--color-2), var(--color-3));
     --background: #0a0a0a;
     --foreground: #ededed;
 
-    --ast-bg1: var(--bg1);
-    --ast-accent: var(--accent);
+    --btn-bg: var(--color-3);
+    --btn-bg-hover: var(--color-2);
+    --btn-text: white;
+    --card-bg: rgba(255, 255, 255, 0.08);
   }
 }
 
@@ -32,7 +50,7 @@ body {
   max-width: 900px;
   margin-left: auto;
   margin-right: auto;
-  background: rgba(255, 255, 255, 0.11);
+  background: var(--card-bg);
   backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);
   border-radius: 20px;
@@ -45,6 +63,10 @@ body {
     inset 0 0 4px 2px rgba(255, 255, 255, 0.2);
   position: relative;
   overflow: hidden;
+}
+
+.glass-card.narrow {
+  max-width: 500px;
 }
 
 .glass-card::before {

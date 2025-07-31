@@ -4,39 +4,41 @@ import Link from "next/link";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import FlowerLoader from "@/components/FlowerLoader";
+import { X, Pencil } from 'lucide-react';
 
 interface UserProfile {
-  name: string | null;
-  email: string;
-  image: string | null;
-  createdAt: string;
-  posts: {
-    id: number;
-    title: string;
-    createdAt: string;
-  }[];
+   name: string | null;
+   email: string;
+   image: string | null;
+   createdAt: string;
+   posts: {
+      id: number;
+      title: string;
+      createdAt: string;
+   }[];
 }
 
 const avatarOptions = [
-  "/avatars/avatar1.png",
-  "/avatars/avatar2.png",
-  "/avatars/avatar3.png",
-  "/avatars/avatar4.png",
-  "/avatars/avatar5.png",
-  "/avatars/avatar6.png",
-  "/avatars/avatar7.png",
-  "/avatars/avatar8.png",
-  "/avatars/avatar9.png",
+   "/avatars/avatar1.png",
+   "/avatars/avatar2.png",
+   "/avatars/avatar3.png",
+   "/avatars/avatar4.png",
+   "/avatars/avatar5.png",
+   "/avatars/avatar6.png",
+   "/avatars/avatar7.png",
+   "/avatars/avatar8.png",
+   "/avatars/avatar9.png",
 ];
 
 export default function ProfilePage() {
-  const { data: session, status } = useSession();
-  const [profile, setProfile] = useState<UserProfile | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [deletingId, setDeletingId] = useState<number | null>(null);
-  const [showModal, setShowModal] = useState(false);
-
-  const fetchProfile = () => {
+   const { data: session, status } = useSession();
+   const [profile, setProfile] = useState<UserProfile | null>(null);
+   const [loading, setLoading] = useState(true);
+   const [deletingId, setDeletingId] = useState<number | null>(null);
+   const [showModal, setShowModal] = useState(false);
+   
+   const fetchProfile = () => {
     if (session?.user?.email) {
       fetch(`/api/users/${encodeURIComponent(session.user.email)}`)
         .then((res) => res.json())
@@ -46,10 +48,14 @@ export default function ProfilePage() {
       setLoading(false);
     }
   };
-
+  
   useEffect(() => {
-    fetchProfile();
-  }, [session]);
+     fetchProfile();
+   }, [session]);
+   
+   if (status === "loading" || loading) {
+   return <FlowerLoader />;
+    }
 
   const handleDelete = async (id: number) => {
     if (!confirm("Delete this post?")) return;
@@ -64,9 +70,6 @@ export default function ProfilePage() {
     setDeletingId(null);
   };
 
-  if (status === "loading" || loading) {
-    return <p className="text-center text-muted-foreground">Loading...</p>;
-  }
 
   if (!session || !profile) {
     return (
@@ -101,7 +104,7 @@ export default function ProfilePage() {
                alt="avatar"
                width={96}
                height={96}
-               className="rounded-full border-2 border-pink-300"
+               className="cursor-pointer rounded-full border-2 border-pink-300"
             />
          </button>
          ) : (
@@ -114,8 +117,8 @@ export default function ProfilePage() {
          )}
 
          {showModal && (
-            <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50">
-               <div className="bg-white dark:bg-zinc-900 p-6 rounded-lg shadow-lg">
+            <div className="fixed inset-0 bg-pink/80 backdrop-blur-sm flex items-center justify-center z-50">
+               <div className="bg-white dark:bg-pink-900 p-6 rounded-lg shadow-lg">
                   <h3 className="mb-4 text-center font-bold">Choose your avatar</h3>
                   <div className="grid grid-cols-3 gap-4">
                   {avatarOptions.map((src) => (
@@ -154,7 +157,7 @@ export default function ProfilePage() {
       <hr className="my-6 border-muted" />
 
       <div>
-        <h3 className="text-lg font-semibold mb-3">Posts</h3>
+        <h3 className="text-lg font-semibold mb-3"> {(profile.name ? profile.name.charAt(0).toUpperCase() + profile.name.slice(1) : "User")} diary </h3>
         {profile.posts.length === 0 ? (
           <p className="text-sm text-muted-foreground">
             You haven’t created any posts yet.
@@ -181,17 +184,17 @@ export default function ProfilePage() {
                   <div className="flex gap-2">
                     <button
                       onClick={() => handleDelete(post.id)}
-                      className="text-xs text-red-400 hover:text-red-500"
+                      className="text-xs text-white hover:text-red-300 cursor-pointer"
                       disabled={deletingId === post.id}
                     >
-                      {deletingId === post.id ? "Deleting..." : "Delete"}
+                      {deletingId === post.id ? "Deleting..." : ( <X width={25} height={25}/> )}
                     </button>
 
                     <Link
                       href={`/edit/${post.id}`}
-                      className="text-xs text-blue-400 hover:text-blue-500"
+                      className="text-white hover:text-pink-400"
                     >
-                      Edit
+                      <Pencil width={20} height={20} className="mt-[2px]"/>
                     </Link>
                   </div>
                 </div>
