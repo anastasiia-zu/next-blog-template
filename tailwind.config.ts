@@ -8,6 +8,11 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      colors: {
+        foreground: "var(--foreground)",
+        background: "var(--background)",
+        "muted-foreground": "rgba(0,0,0,0.6)",
+      },
     },
   },
   plugins: [],
