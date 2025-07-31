@@ -1,11 +1,13 @@
 import { NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
 
-export async function GET(
-  request: Request,
-  { params }: { params: { email: string } }
-) {
-  const { email } = params;
+export async function GET(req: Request) {
+  const url = new URL(req.url);
+  const email = decodeURIComponent(url.pathname.split("/").pop() || "");
+
+  if (!email) {
+    return NextResponse.json({ message: "Email is required" }, { status: 400 });
+  }
 
   try {
     const user = await prisma.user.findUnique({
@@ -32,6 +34,7 @@ export async function GET(
 
     return NextResponse.json(user);
   } catch (err) {
+    console.error(err);
     return NextResponse.json({ message: "Server error" }, { status: 500 });
   }
 }

@@ -10,6 +10,7 @@ export async function POST(req: Request) {
       })
       return NextResponse.json(user);
    } catch (err) {
+      console.error(err);
       return NextResponse.json({message: "user is already exist"}, {status: 400});
    };
 };
