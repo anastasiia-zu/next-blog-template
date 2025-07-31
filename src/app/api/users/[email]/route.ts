@@ -1,9 +1,11 @@
 import { NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
 
-export async function GET(req: Request) {
-  const url = new URL(req.url);
-  const email = decodeURIComponent(url.pathname.split("/").pop() || "");
+type Params = Promise<{email:string}>
+
+export async function GET(req: Request, context: { params: Params }) {
+  const { email } = await context.params;
+
 
   if (!email) {
     return NextResponse.json({ message: "Email is required" }, { status: 400 });

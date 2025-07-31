@@ -1,14 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
 
-export async function DELETE( req: NextRequest ) {
-  const url = new URL(req.url);
-  const id = url.pathname.split("/").pop();
-  const postId = Number(id);
+type Params = Promise<{id:string}>
 
-  if (isNaN(postId)) {
-    return NextResponse.json({ message: "Invalid ID" }, { status: 400 });
-  }
+export async function DELETE( req: NextRequest, context: { params: Params }) {
+  const context_id = await context.params;
+  const postId = Number(context_id.id);
 
   try {
     const deletedPost = await prisma.post.delete({
