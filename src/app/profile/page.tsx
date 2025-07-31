@@ -17,11 +17,24 @@ interface UserProfile {
   }[];
 }
 
+const avatarOptions = [
+  "/avatars/avatar1.png",
+  "/avatars/avatar2.png",
+  "/avatars/avatar3.png",
+  "/avatars/avatar4.png",
+  "/avatars/avatar5.png",
+  "/avatars/avatar6.png",
+  "/avatars/avatar7.png",
+  "/avatars/avatar8.png",
+  "/avatars/avatar9.png",
+];
+
 export default function ProfilePage() {
   const { data: session, status } = useSession();
   const [profile, setProfile] = useState<UserProfile | null>(null);
   const [loading, setLoading] = useState(true);
   const [deletingId, setDeletingId] = useState<number | null>(null);
+  const [showModal, setShowModal] = useState(false);
 
   const fetchProfile = () => {
     if (session?.user?.email) {
@@ -63,24 +76,69 @@ export default function ProfilePage() {
     );
   }
 
+   const handleSelectAvatar = async (newImage: string) => {
+   if (!session?.user?.email) return;
+
+   await fetch("/api/users/avatar", {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email: session.user.email, image: newImage }),
+   });
+
+   setShowModal(false);
+   fetchProfile();
+   };
+
   return (
     <div className="glass-card w-full max-w-2xl p-8 mx-auto mt-12 text-foreground bg-[var(--background)] rounded-xl shadow-md">
       <h2 className="text-2xl font-bold mb-6 text-center">Your Profile</h2>
 
       <div className="flex flex-col items-center gap-4">
         {profile.image ? (
-          <Image
-            src={profile.image}
-            alt="avatar"
-            width={96}
-            height={96}
-            className="rounded-full border-2 border-pink-300"
-          />
-        ) : (
-          <div className="w-24 h-24 rounded-full bg-white/20 flex items-center justify-center text-2xl font-bold text-white">
+         <button onClick={() => setShowModal(true)}>
+            <Image
+               src={profile.image}
+               alt="avatar"
+               width={96}
+               height={96}
+               className="rounded-full border-2 border-pink-300"
+            />
+         </button>
+         ) : (
+         <button
+            onClick={() => setShowModal(true)}
+            className="w-24 h-24 rounded-full bg-white/20 flex items-center justify-center text-2xl font-bold text-white"
+         >
             {profile.name?.charAt(0).toUpperCase() || "?"}
-          </div>
-        )}
+         </button>
+         )}
+
+         {showModal && (
+            <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50">
+               <div className="bg-white dark:bg-zinc-900 p-6 rounded-lg shadow-lg">
+                  <h3 className="mb-4 text-center font-bold">Choose your avatar</h3>
+                  <div className="grid grid-cols-3 gap-4">
+                  {avatarOptions.map((src) => (
+                     <Image
+                        key={src}
+                        src={src}
+                        alt="avatar option"
+                        width={64}
+                        height={64}
+                        onClick={() => handleSelectAvatar(src)}
+                        className="cursor-pointer rounded-full border-2 hover:border-pink-400"
+                     />
+                  ))}
+                  </div>
+                  <button
+                  onClick={() => setShowModal(false)}
+                  className="mt-6 block mx-auto text-sm text-muted-foreground hover:underline"
+                  >
+                  Cancel
+                  </button>
+               </div>
+            </div>
+            )}
 
         <div className="text-center">
           <p className="text-lg font-semibold">

@@ -22,12 +22,15 @@ export default async function PostPage({ params }: PostPageProps) {
       <div className="relative glass-card p-8 max-w-3xl mx-auto">
         <div className="flex items-start gap-6 mb-6">
           <div className="w-16 h-16 rounded-full overflow-hidden border border-white/40 shadow-md">
-            {/* <Image
-              src={`https://api.dicebear.com/7.x/lorelei/svg?seed=${post.author?.name || "anon"}`}
-              width={64}
-              height={64}
-              alt="User avatar"
-            /> */}
+            {post.author?.image && (
+               <Image
+                  src={post.author.image}
+                  alt="avatar"
+                  width={48}
+                  height={48}
+                  className="rounded-full border border-white/30"
+               />
+               )}
           </div>
 
           <div>
