@@ -18,6 +18,7 @@ model User {
   email      String    @unique
   password   String
   name       String?
+  image      String?
   posts      Post[]
   createdAt  DateTime  @default(now())
   updatedAt  DateTime  @updatedAt
@@ -31,5 +32,4 @@ model Post {
   author       User?      @relation(fields: [authorEmail], references: [email])
   createdAt    DateTime   @default(now())
   updatedAt    DateTime   @updatedAt
-
 }

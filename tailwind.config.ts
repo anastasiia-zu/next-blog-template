@@ -12,6 +12,8 @@ const config: Config = {
         foreground: "var(--foreground)",
         background: "var(--background)",
         "muted-foreground": "rgba(0,0,0,0.6)",
+        astBg1: "var(--ast-bg1)",
+        astAccent: "var(--ast-accent)",
       },
     },
   },

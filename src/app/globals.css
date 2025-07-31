@@ -12,6 +12,9 @@
     --gradient-background: linear-gradient(to bottom right, #1a1a1a, #2a1f2d, #3b1f3f);
     --background: #0a0a0a;
     --foreground: #ededed;
+
+    --ast-bg1: var(--bg1);
+    --ast-accent: var(--accent);
   }
 }
 
@@ -26,7 +29,7 @@ body {
 
 .glass-card {
   width: 100%;
-  max-width: 600px;
+  max-width: 900px;
   margin-left: auto;
   margin-right: auto;
   background: rgba(255, 255, 255, 0.11);

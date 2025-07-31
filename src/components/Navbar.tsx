@@ -40,6 +40,11 @@ export default function Navbar() {
                      <Link href="/signup" className="hover:underline text-sm">Sign Up</Link>
                   </>
                )}
+               {status === "authenticated" && (
+                  <Link href="/profile" className="hover:underline text-sm">
+                     My Profile
+                  </Link>
+               )}
             </div>
          </div>
       </nav>

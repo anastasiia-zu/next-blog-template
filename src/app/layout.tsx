@@ -26,6 +26,30 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="light">
+      <head>
+         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;700&display=swap" />
+            <style>{`
+            @font-face {
+               font-family: "Distrela";
+               src: url("https://files.jcink.net/uploads2/leaptesting/Ekahermawan___Distrela_Regular.otf");
+            }
+
+            @font-face {
+               font-family: "Chronicle";
+               src: url("https://files.jcink.net/uploads2/leaptesting/Chronicle_Deck_Bold.otf");
+            }
+
+            :root {
+               --title: "Distrela", serif;
+               --title2: "Chronicle", serif;
+               --body: "Noto Serif", serif;
+            }
+
+            body {
+               font-family: var(--body);
+            }
+            `}</style>
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
