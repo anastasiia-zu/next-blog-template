@@ -3,7 +3,7 @@ import prisma from "@/lib/prisma";
 
 type Params = Promise<{id:string}>
 
-export async function DELETE( req: NextRequest, context: { params: Params }) {
+export async function DELETE( req: NextRequest, context: { params: Promise<Params> }) {
   const context_id = await context.params;
   const postId = Number(context_id.id);
 

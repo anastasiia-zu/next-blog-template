@@ -2,7 +2,8 @@ import prisma from "@/lib/prisma";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 
-export default async function PostPage({ params }: { params: { id: string } }) {
+export default async function PostPage(props: { params: Promise<{ id: string }> }) {
+  const params = await props.params;
   const postId = Number(params.id);
 
   const post = await prisma.post.findUnique({

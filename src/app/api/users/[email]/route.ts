@@ -3,7 +3,7 @@ import prisma from "@/lib/prisma";
 
 type Params = Promise<{email:string}>
 
-export async function GET(req: Request, context: { params: Params }) {
+export async function GET(req: Request, context: { params: Promise<Params> }) {
   const { email } = await context.params;
 
 
