@@ -20,12 +20,12 @@ export default function Navbar() {
 
           {status === "authenticated" ? (
             <>
-              <Link
+              {/* <Link
                 href="/create-post"
                 className="hover:underline transition text-white/80 hover:text-white"
               >
                 Create Post
-              </Link>
+              </Link> */}
               <Link
                 href="/profile"
                 className="hover:underline transition text-white/80 hover:text-white"
@@ -33,7 +33,7 @@ export default function Navbar() {
                 My Profile
               </Link>
               <button
-                onClick={() => signOut()}
+                onClick={() => signOut({ callbackUrl: "/" })}
                 className="hover:underline transition text-white/80 hover:text-white"
               >
                 Exit

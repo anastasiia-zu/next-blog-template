@@ -5,7 +5,7 @@ import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import FlowerLoader from "@/components/FlowerLoader";
-import { X, Pencil } from 'lucide-react';
+import { X, Pencil, Settings } from 'lucide-react';
 
 interface UserProfile {
   name: string | null;
@@ -122,7 +122,7 @@ export default function ProfilePage() {
           }}
           title="Edit profile"
         >
-          <Pencil size={16} />
+          <Settings size={16} />
         </button>
 
         <div className="text-center">
