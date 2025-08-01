@@ -122,7 +122,7 @@ export default function ProfilePage() {
           }}
           title="Edit profile"
         >
-          <Settings size={16} />
+          <Settings size={16} className="cursor-pointer"/>
         </button>
 
         <div className="text-center">
@@ -178,7 +178,7 @@ export default function ProfilePage() {
                       style={{ color: deletingId === post.id ? "var(--color-2)" : "var(--btn-text)" }}
                       disabled={deletingId === post.id}
                     >
-                      {deletingId === post.id ? "Deleting..." : <X width={25} height={25} />}
+                      {deletingId === post.id ? "Deleting..." : <X width={25} height={25} className="cursor-pointer hover:text-red-400 transition-colors duration-200"/>}
                     </button>
                     <Link href={`/edit/${post.id}`} style={{ color: "var(--color-3)" }}>
                       <Pencil width={20} height={20} className="mt-[2px]" />
