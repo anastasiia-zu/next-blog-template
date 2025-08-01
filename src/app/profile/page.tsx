@@ -180,7 +180,7 @@ export default function ProfilePage() {
                     >
                       {deletingId === post.id ? "Deleting..." : <X width={25} height={25} className="cursor-pointer hover:text-red-400 transition-colors duration-200"/>}
                     </button>
-                    <Link href={`/edit/${post.id}`} style={{ color: "var(--color-3)" }}>
+                    <Link href={`/posts/${post.id}`} style={{ color: "var(--color-3)" }}>
                       <Pencil width={20} height={20} className="mt-[2px]" />
                     </Link>
                   </div>
