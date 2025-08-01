@@ -38,6 +38,7 @@ export default async function FeedPage() {
                 <div className="flex items-center gap-3">
                   <div className="w-8 h-8 rounded-full overflow-hidden border border-white/30 shadow-sm">
                     {post.author?.image ? (
+                      // eslint-disable-next-line @next/next/no-img-element
                       <img
                         src={post.author.image}
                         alt="avatar"

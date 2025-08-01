@@ -33,7 +33,7 @@ export default function CreatePost() {
       <h2 className="text-xl font-bold mb-4 text-[var(--text-heading)] flex items-center justify-center">Share your thoughts</h2>
 
       {!session && (
-        <p className="text-sm text-[var(--text-subtle)] mb-2 flex items-center justify-center mb-5">
+        <p className="text-sm text-[var(--text-subtle)] flex items-center justify-center mb-5">
           Please log in to publish.
         </p>
       )}
